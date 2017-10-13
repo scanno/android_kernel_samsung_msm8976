@@ -1265,6 +1265,8 @@ enum qca_wlan_vendor_attr_pno_config_params {
 	 */
 	QCA_WLAN_VENDOR_ATTR_EPNO_BAND5GHZ_BONUS = 22,
 
+        /* Unsigned 32-bit value, representing the PNO Request ID */
+        QCA_WLAN_VENDOR_ATTR_PNO_CONFIG_REQUEST_ID = 23,
 
 	/* keep last */
 	QCA_WLAN_VENDOR_ATTR_PNO_AFTER_LAST,
@@ -1667,6 +1669,7 @@ int wlan_hdd_cfg80211_init(struct device *dev,
                                struct wiphy *wiphy,
                                hdd_config_t *pCfg
                                          );
+void wlan_hdd_cfg80211_deinit(struct wiphy *wiphy);
 
 void wlan_hdd_update_wiphy(struct wiphy *wiphy,
                            hdd_config_t *pCfg);
