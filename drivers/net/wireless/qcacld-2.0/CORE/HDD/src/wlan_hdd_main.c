@@ -1309,7 +1309,7 @@ static int hdd_parse_setrmcenable_command(tANI_U8 *pValue, tANI_U8 *pRmcEnable)
         return 0;
     }
 
-    sscanf(inPtr, "%32s ", buf);
+    sscanf(inPtr, "%31s ", buf);
     v = kstrtos32(buf, 10, &tempInt);
     if ( v < 0)
     {
@@ -1353,7 +1353,7 @@ static int hdd_parse_setrmcactionperiod_command(tANI_U8 *pValue,
         return 0;
     }
 
-    sscanf(inPtr, "%32s ", buf);
+    sscanf(inPtr, "%31s ", buf);
     v = kstrtos32(buf, 10, &tempInt);
     if ( v < 0)
     {
@@ -14475,6 +14475,14 @@ int hdd_wlan_startup(struct device *dev, v_VOID_t *hif_sc)
        hddLog(VOS_TRACE_LEVEL_ERROR,
               "%s: WMI_PDEV_PARAM_TX_CHAIN_MASK_1SS failed %d",
               __func__, ret);
+   }
+
+   ret = process_wma_set_command(0, WMI_PDEV_PARAM_ARP_AC_OVERRIDE,
+                                 pHddCtx->cfg_ini->arp_ac_category, PDEV_CMD);
+   if (0 != ret) {
+       hddLog(LOGE,
+              "%s: WMI_PDEV_PARAM_ARP_AC_OVERRIDE failed AC: %d ret: %d",
+              __func__, pHddCtx->cfg_ini->arp_ac_category, ret);
    }
 
    status = hdd_set_sme_chan_list(pHddCtx);
